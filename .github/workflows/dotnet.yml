@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - run: echo "{GITHUB_REPOSITORY:$GITHUB_REPOSITORY, GITHUB_SHA:$GITHUB_SHA, GITHUB_REF:$GITHUB_REF, GITHUB_ACTOR:$GITHUB_ACTOR}"
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1

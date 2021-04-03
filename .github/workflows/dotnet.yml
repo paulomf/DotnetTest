@@ -29,11 +29,9 @@ jobs:
 #        name: Benchmark_Results
 #        path: ./BenchmarkDotNet.Artifacts/results/*
 
-    - name: Get version
+    - name: Get results
       id: vars
       run: echo ::set-output name=version::$(cat ./BenchmarkDotNet.Artifacts/results/*.json)
-    - name: Test output
-      run: echo '{"BenchmarkDotNet":${{ steps.vars.outputs.version }}, "Github":{"GITHUB_REPOSITORY":"${{ github.repository }}", "GITHUB_SHA":"${{ github.sha }}", "GITHUB_REF":"${{ github.ref }}", "GITHUB_ACTOR":"${{ github.actor }}"}}'
 
     - name: Upload results
       id: myRequest

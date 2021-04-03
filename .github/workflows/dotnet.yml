@@ -34,6 +34,7 @@ jobs:
       with:
         url: 'https://outsystems-dev.kb22a9gnkn.outsystemsteams.com/BenchSystems/rest/v1/reports'
         method: 'POST'
+        contentType: 'application/json'
         data: '{}'
     - name: Show Response
       run: echo ${{ steps.myRequest.outputs.response }}

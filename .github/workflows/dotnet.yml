@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  Benchmark:
 
     runs-on: ubuntu-latest
 
@@ -23,8 +23,14 @@ jobs:
       run: dotnet build --no-restore
     - name: Benchmark
       run: dotnet run -c Release --filter * --project ConsoleApp1
-    - name: Upload benchmark results
-      uses: actions/upload-artifact@v2
+#    - name: Upload benchmark results
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: Benchmark_Results
+#        path: ./BenchmarkDotNet.Artifacts/results/*
+    - name: Upload results
+      uses: fjogeleit/http-request-action@master
       with:
-        name: Benchmark_Results
-        path: ./BenchmarkDotNet.Artifacts/results/*
+        url: 'https://outsystems-dev.kb22a9gnkn.outsystemsteams.com/BenchSystems/rest/v1/reports'
+        method: 'POST'
+        data: '{}'

@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Test output
-      run: echo '{"Github":{"GITHUB_REPOSITORY":${{ $GITHUB_REPOSITORY }}, "GITHUB_SHA":${{ $GITHUB_SHA }}, "GITHUB_REF":${{ $GITHUB_REF }}, "GITHUB_ACTOR":${{ $GITHUB_ACTOR}}}}'
+      run: echo '{"Github":{"GITHUB_REPOSITORY":${{ github.repository }}, "GITHUB_SHA":${{ github.sha }}, "GITHUB_REF":${{ github.ref }}, "GITHUB_ACTOR":${{ $github.actor }}}}'
 
     - uses: actions/checkout@v2
     - name: Setup .NET

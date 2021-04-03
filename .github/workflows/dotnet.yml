@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Test output
-      run: echo '{"Github":{"GITHUB_REPOSITORY":${{ github.repository }}, "GITHUB_SHA":${{ github.sha }}, "GITHUB_REF":${{ github.ref }}, "GITHUB_ACTOR":${{ github.actor }}}}'
-
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -31,6 +28,13 @@ jobs:
 #      with:
 #        name: Benchmark_Results
 #        path: ./BenchmarkDotNet.Artifacts/results/*
+
+    - name: Get version
+      id: vars
+      run: echo ::set-output name=version::$(cat ./BenchmarkDotNet.Artifacts/results/*.json)
+    - name: Test output
+      run: echo '{"BenchmarkDotNet":${{ steps.vars.outputs.version }}, "Github":{"GITHUB_REPOSITORY":"${{ github.repository }}", "GITHUB_SHA":"${{ github.sha }}", "GITHUB_REF":"${{ github.ref }}", "GITHUB_ACTOR":"${{ github.actor }}"}}'
+
     - name: Upload results
       id: myRequest
       uses: fjogeleit/http-request-action@master
@@ -38,12 +42,6 @@ jobs:
         url: 'https://outsystems-dev.kb22a9gnkn.outsystemsteams.com/BenchSystems/rest/v1/reports'
         method: 'POST'
         contentType: 'application/json'
-        data: '{}'
+        data: '{"BenchmarkDotNet":${{ steps.vars.outputs.version }}, "Github":{"GITHUB_REPOSITORY":"${{ github.repository }}", "GITHUB_SHA":"${{ github.sha }}", "GITHUB_REF":"${{ github.ref }}", "GITHUB_ACTOR":"${{ github.actor }}"}}'
     - name: Show Response
       run: echo ${{ steps.myRequest.outputs.response }}
-
-    - name: Get version
-      id: vars
-      run: echo ::set-output name=version::$(cat ./BenchmarkDotNet.Artifacts/results/*.json)
-    - name: Test output
-      run: echo '{"BenchmarkDotNet":${{ steps.vars.outputs.version }}, "Github":{"GITHUB_REPOSITORY":${{ github.repository }}, "GITHUB_SHA":${{ github.sha }}, "GITHUB_REF":${{ github.ref }}, "GITHUB_ACTOR":${{ github.actor }}}}'

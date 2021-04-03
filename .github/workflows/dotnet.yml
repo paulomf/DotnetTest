@@ -23,3 +23,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Benchmark
       run: dotnet run -c Release --filter * --project ConsoleApp1
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v2
+      with:
+        name: Benchmark_Results
+        path: ./BenchmarkDotNet.Artifacts/results/*

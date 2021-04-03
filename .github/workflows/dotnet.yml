@@ -40,3 +40,11 @@ jobs:
     - name: Show Response
       run: echo ${{ steps.myRequest.outputs.response }}
       
+    - name: Read file contents
+      id: read_file
+      uses: andstor/file-reader-action@v1
+      with:
+        path: ./BenchmarkDotNet.Artifacts/results/*.json
+
+    - name: File contents
+      run: echo "${ steps.read_file.outputs.contents }"

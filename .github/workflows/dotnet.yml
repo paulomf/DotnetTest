@@ -43,3 +43,4 @@ jobs:
         data: '{"BenchmarkDotNet":${{ steps.vars.outputs.version }}, "Github":{"GITHUB_REPOSITORY":"${{ github.repository }}", "GITHUB_SHA":"${{ github.sha }}", "GITHUB_REF":"${{ github.ref }}", "GITHUB_ACTOR":"${{ github.actor }}"}}'
     - name: Show Response
       run: echo ${{ steps.myRequest.outputs.response }}
+

@@ -7,6 +7,6 @@ namespace ClassLibrary1
     public class Class1
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void MySleep(int i) => Thread.Sleep(i*1);
+        public static void MySleep(int i) => Thread.Sleep(i*3);
     }
 }
